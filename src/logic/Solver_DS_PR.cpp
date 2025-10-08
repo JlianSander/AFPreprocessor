@@ -113,6 +113,8 @@ bool Solver_DS_PR::solve(uint32_t query_argument, AF &framework, list<uint32_t> 
 		std::cout << "============  Without Grounded Extension  ============" << std::endl;
 	
 		tools::Tools_Debug::checkContainsNumbersOfWitness(framework, filePath, args_coi, false, true);
+
+		return 0;
 		// ------------------------ DEBUG ----------------------------------------------------------------------
 
 		bool is_skeptically_accepted = search_complete_sets_in_state(framework, active_args_in_coi, query_argument, out_certificate_extension, coi, is_query_attacked);
