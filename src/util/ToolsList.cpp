@@ -35,12 +35,29 @@ bool tools::Tools_List::contains(std::list<uint32_t> list_input, uint32_t query)
 
 /*===========================================================================================================================================================*/
 /*===========================================================================================================================================================*/
+
 std::list<uint32_t> tools::Tools_List::remove_list(std::list<uint32_t> &listA, std::list<uint32_t> &listB){
 	std::list<uint32_t> list_output;
 	std::copy(listA.begin(), listA.end(), std::back_inserter(list_output));
 
 	for (std::list<uint32_t>::iterator mIter = listB.begin(); mIter != listB.end(); ++mIter) {
 		list_output.remove(*mIter);
+	}
+
+	return list_output;
+}
+
+/*===========================================================================================================================================================*/
+/*===========================================================================================================================================================*/
+
+std::list<uint32_t> tools::Tools_List::create_intersection(std::list<uint32_t> &listA, std::list<uint32_t> &listB){
+	std::list<uint32_t> list_output;
+
+	for (std::list<uint32_t>::iterator mIter = listB.begin(); mIter != listB.end(); ++mIter) {
+
+		if(tools::Tools_List::contains(listA, *mIter)){
+			list_output.push_back(*mIter);
+		}
 	}
 
 	return list_output;

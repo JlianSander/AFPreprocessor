@@ -80,7 +80,8 @@ static std::list<uint32_t> get_list_not_contained_numbers(std::vector<uint32_t> 
 /*===========================================================================================================================================================*/
 
 
-bool tools::Tools_Debug::checkContainsNumbersOfWitness(AF &framework, const std::string& file_path_witness, const std::list<uint32_t>& considered_arguments, bool showNotFound, bool show_Remaining) {
+bool tools::Tools_Debug::compare_witness_to_list(const std::string& file_path_witness, const std::list<uint32_t>& considered_arguments, bool showNotFound, bool show_Remaining, 
+    std::list<uint32_t>& not_found_OUT, std::list<uint32_t>& remaining_OUT) {
     
     std::vector<uint32_t> numbersFromFile = get_numbers(file_path_witness);
     std::list<uint32_t> not_found = get_list_not_contained_numbers(numbersFromFile, considered_arguments); 
@@ -101,7 +102,21 @@ bool tools::Tools_Debug::checkContainsNumbersOfWitness(AF &framework, const std:
         std::cout << std::endl;
     }
 
+    not_found_OUT = not_found;
+    remaining_OUT = remaining;
+
     return not_found.empty();
+}
+
+/*===========================================================================================================================================================*/
+/*===========================================================================================================================================================*/
+
+std::list<uint32_t> tools::Tools_Debug::read_witness(const std::string& file_path_witness){
+    std::vector<uint32_t> numbersFromFile = get_numbers(file_path_witness);
+
+    std::list<uint32_t> numbersFromFile_lst;
+    tools::Tools_List::copy_in_list(numbersFromFile_lst, numbersFromFile);
+    return numbersFromFile_lst;
 }
 
 /*===========================================================================================================================================================*/
@@ -137,4 +152,20 @@ void tools::Tools_Debug::test_witness_check(){
     // Test case 4
     std::list<uint32_t> arr_4 = {1, 4, 5, 6, 7};
     test(filePath, arr_4);
+}
+
+
+/*===========================================================================================================================================================*/
+/*===========================================================================================================================================================*/
+
+
+std::list<uint32_t> tools::Tools_Debug::get_active_attackers(AF &framework, ArrayBitSet &active_args, uint32_t query_argument){
+
+    list<uint32_t> attackers = list<uint32_t>();
+    tools::Tools_List::copy_in_list(attackers,  framework.attackers[query_argument]);
+
+    list<uint32_t> actv_args_lst = list<uint32_t>();
+    tools::Tools_List::copy_in_list(actv_args_lst,  active_args._array);
+
+    return tools::Tools_List::create_intersection(attackers, actv_args_lst);
 }

@@ -167,6 +167,14 @@ int static execute(int argc, char **argv)
 	string task = problem.substr(0, problem.find("-"));
 	problem.erase(0, problem.find("-") + 1);
 	string sem = problem.substr(0, problem.find("-"));
+	
+	// ----------- DEBUG ---------------------
+	tools::WitnessTester::test(query_argument, framework, "/home/jsander/reducto/debug/witness.txt");
+
+	return 0;
+	// ----------- DEBUG ---------------------
+
+
 	// process the problem
 	switch (Enums::string_to_task(task)) {
 		// skeptical acceptance problem

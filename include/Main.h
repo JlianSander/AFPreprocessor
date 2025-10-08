@@ -23,6 +23,7 @@ extern "C" {
 #include "../include/logic/Enums.h"
 
 #include "../include/util/ToolsDebugging.h"
+#include "../include/util/ToolsDebugWitnessTester.h"
 
 /// <summary>
 /// Name of the program

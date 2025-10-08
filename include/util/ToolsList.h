@@ -43,6 +43,14 @@ namespace tools {
 		/// <param name="ListB">List of elements to be removed from listA.</param>
 		/// <returns>Newly created list, that holds copies of elements of listA which are not in listB.</returns>
 		static std::list<uint32_t> remove_list(std::list<uint32_t> &listA, std::list<uint32_t> &listB);
+
+		/// <summary>
+		/// This method creates a new list, which contains only those elements of listA, which are contained in listB.
+		/// </summary>
+		/// <param name="listA">List of elements.</param>
+		/// <param name="ListB">List of elements.</param>
+		/// <returns>Newly created list, that holds copies of elements of listA which are in listB.</returns>
+		static std::list<uint32_t> create_intersection(std::list<uint32_t> &listA, std::list<uint32_t> &listB);
 	};
 };
 #endif
