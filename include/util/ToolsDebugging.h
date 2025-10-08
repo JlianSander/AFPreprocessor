@@ -15,6 +15,7 @@
 
 #include "../logic/AF.h"
 #include "Printer.h"
+#include "ToolsList.h"
 
 namespace tools {
 
@@ -24,8 +25,7 @@ namespace tools {
 	class Tools_Debug {
 
     public:
-        static bool checkContainsNumbersOfWitness(AF &framework, const std::string& file_path_witness, const std::list<uint32_t>& considered_arguments);
-        static void print_Msg_ContainsNumbersOfWitness(AF &framework, const std::string& filePath, const std::list<uint32_t>& arr);
+        static bool checkContainsNumbersOfWitness(AF &framework, const std::string& file_path_witness, const std::list<uint32_t>& considered_arguments, bool showNotFound, bool show_Remaining);
         static void test_witness_check();
     };    
 };

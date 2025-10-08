@@ -35,6 +35,14 @@ namespace tools {
 		/// <param name="query">The element, which inclusion is to be checked.</param>
 		/// <returns>TRUE iff the element is contained. FALSE otherwise.</returns>
 		static bool contains(std::list<uint32_t> list_input, uint32_t query);
+
+		/// <summary>
+		/// This method creates a new list, which contains only those elements of listA, which are not contained in listB.
+		/// </summary>
+		/// <param name="listA">List of elements.</param>
+		/// <param name="ListB">List of elements to be removed from listA.</param>
+		/// <returns>Newly created list, that holds copies of elements of listA which are not in listB.</returns>
+		static std::list<uint32_t> remove_list(std::list<uint32_t> &listA, std::list<uint32_t> &listB);
 	};
 };
 #endif

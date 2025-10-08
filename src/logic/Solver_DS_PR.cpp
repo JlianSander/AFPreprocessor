@@ -71,6 +71,17 @@ bool Solver_DS_PR::solve(uint32_t query_argument, AF &framework, list<uint32_t> 
 	pre_proc_result result_preProcessor;
 	ConeOfInfluence coi(framework);
 	list<uint32_t> grounded_extension;
+
+	// // ------------------------ DEBUG ----------------------------------------------------------------------
+	// 	std::cout << "============  Before starting Preprocessing  ============" << std::endl;
+	// 	ArrayBitSet actv_args = framework.create_active_arguments();
+	// 	std::list<uint32_t> args; // list of arguments that are of relevance
+	// 	tools::Tools_List::copy_in_list(args, actv_args._array);
+	// 	std::string filePath = "/home/jsander/reducto/debug/witness.txt";   // Path to the file
+
+	// 	tools::Tools_Debug::print_Msg_ContainsNumbersOfWitness(framework, filePath, args);
+	// // ------------------------ DEBUG ----------------------------------------------------------------------
+
 	// preprocess the framework
 	result_preProcessor = PreProc_GR::process(framework, query_argument, true, true, active_args_in_coi, grounded_extension, coi);
 	tools::Tools_Solver::UpdateCertificate(out_certificate_extension, grounded_extension);
@@ -91,12 +102,18 @@ bool Solver_DS_PR::solve(uint32_t query_argument, AF &framework, list<uint32_t> 
 		bool is_query_attacked = false;
 
 		// ------------------------ DEBUG ----------------------------------------------------------------------
-		std::list<uint32_t> args; // list of arguments that are of relevance
-		tools::Tools_List::copy_in_list(args, active_args_in_coi._array);
-		args = tools::Tools_List::extend_list(args, grounded_extension);
+		std::cout << "============  After Preprocessing  ============" << std::endl;
+		std::list<uint32_t> args_coi; // list of arguments that are of relevance
+		tools::Tools_List::copy_in_list(args_coi, active_args_in_coi._array);
+		std::list<uint32_t> args_2 = tools::Tools_List::extend_list(args_coi, grounded_extension);
 		std::string filePath = "/home/jsander/reducto/debug/witness.txt";   // Path to the file
 
-		tools::Tools_Debug::print_Msg_ContainsNumbersOfWitness(framework, filePath, args);
+		tools::Tools_Debug::checkContainsNumbersOfWitness(framework, filePath, args_2, false, true);
+
+		std::cout << "============  Without Grounded Extension  ============" << std::endl;
+	
+		tools::Tools_Debug::checkContainsNumbersOfWitness(framework, filePath, args_coi, false, true);
+
 		return 0;
 		// ------------------------ DEBUG ----------------------------------------------------------------------
 

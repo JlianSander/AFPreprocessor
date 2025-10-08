@@ -184,7 +184,25 @@ pre_proc_result PreProc_GR::process(AF &framework, uint32_t query, bool break_ac
 		}
 	}
 
+	// // ------------------------ DEBUG ----------------------------------------------------------------------
+	// 	std::cout << "============  Before starting COI reduction  ============" << std::endl;
+	// 	ArrayBitSet actv_args = framework.create_active_arguments();
+	// 	std::list<uint32_t> args; // list of arguments that are of relevance
+	// 	tools::Tools_List::copy_in_list(args, actv_args._array);
+	// 	std::string filePath = "/home/jsander/reducto/debug/witness.txt";   // Path to the file
+
+	// 	tools::Tools_Debug::print_Msg_ContainsNumbersOfWitness(framework, filePath, args);
+	// // ------------------------ DEBUG ----------------------------------------------------------------------
+
 	ArrayBitSet active_args = calculate_cone_influence(framework, query, out_coi);
+
+	// // ------------------------ DEBUG ----------------------------------------------------------------------
+	// 	std::cout << "============  Before starting GR reduction  ============" << std::endl;
+	// 	std::list<uint32_t> args_2;
+	// 	tools::Tools_List::copy_in_list(args_2, active_args._array);
+
+	// 	tools::Tools_Debug::print_Msg_ContainsNumbersOfWitness(framework, filePath, args_2);
+	// // ------------------------ DEBUG ----------------------------------------------------------------------
 
 	return reduce_by_grounded(framework, active_args, query, break_accepted, break_rejected, out_reduct, out_gr_extension);
 }

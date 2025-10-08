@@ -12,6 +12,8 @@
 #include "omp.h"
 
 #include "../util/ArrayBitSet.h"
+#include "../util/ToolsList.h"
+#include "../util/ToolsDebugging.h"
 #include "../logic/Enums.h"
 
 extern "C" {

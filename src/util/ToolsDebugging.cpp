@@ -26,21 +26,21 @@ static bool isValidInteger(const std::string& token) {
 /*===========================================================================================================================================================*/
 /*===========================================================================================================================================================*/
 
-static std::vector<int> get_numbers(const std::string& file_path){
+static std::vector<uint32_t> get_numbers(const std::string& file_path){
     // Open the file for reading
      std::ifstream file(file_path);
     if (!file.is_open()) {
         std::cerr << "Error opening file: " << file_path << std::endl;
-        return std::vector<int>();
+        return std::vector<uint32_t>();
     }
 
     std::string token;
-    std::vector<int> numbersFromFile;
+    std::vector<uint32_t> numbersFromFile;
 
     // Read tokens one by one from the file (space-separated)
     while (file >> token) {
         if (isValidInteger(token)) {
-            int number = std::stoi(token);
+            uint32_t number = std::stoi(token);
             numbersFromFile.push_back(number);
         }
         // else: skip the non-numeric token
@@ -55,7 +55,7 @@ static std::vector<int> get_numbers(const std::string& file_path){
 /*===========================================================================================================================================================*/
 
 // Helper function to get a list of all numbers of a file which are not contained in a list of numbers
-static std::list<uint32_t> get_list_not_contained_numbers(std::vector<int> numbersFromFile, const std::list<uint32_t>& list_numbers) {
+static std::list<uint32_t> get_list_not_contained_numbers(std::vector<uint32_t> numbersFromFile, const std::list<uint32_t>& list_numbers) {
     
     std::list<uint32_t> not_found = std::list<uint32_t>();
     
@@ -80,14 +80,24 @@ static std::list<uint32_t> get_list_not_contained_numbers(std::vector<int> numbe
 /*===========================================================================================================================================================*/
 
 
-bool tools::Tools_Debug::checkContainsNumbersOfWitness(AF &framework, const std::string& file_path_witness, const std::list<uint32_t>& considered_arguments) {
+bool tools::Tools_Debug::checkContainsNumbersOfWitness(AF &framework, const std::string& file_path_witness, const std::list<uint32_t>& considered_arguments, bool showNotFound, bool show_Remaining) {
     
-    std::vector<int> numbersFromFile = get_numbers(file_path_witness);
+    std::vector<uint32_t> numbersFromFile = get_numbers(file_path_witness);
     std::list<uint32_t> not_found = get_list_not_contained_numbers(numbersFromFile, considered_arguments); 
 
-    std::cout << "Did not find " << not_found.size() << " of " << numbersFromFile.size() << " arguments in witness." << std::endl;
-    if(!not_found.empty()){
+    if(!not_found.empty() && showNotFound){
+        std::cout << "The following " << not_found.size() << "/" << numbersFromFile.size() << " arguments of the witness were not found in the list:" << std::endl;
         Printer::print_list(not_found);
+        std::cout << std::endl;
+    }
+
+    std::list<uint32_t> remaining, numbersFromFile_list;
+    tools::Tools_List::copy_in_list(numbersFromFile_list, numbersFromFile);
+    remaining = tools::Tools_List::remove_list(numbersFromFile_list, not_found);
+
+    if(show_Remaining){
+        std::cout << "The following " << remaining.size() << "/" << numbersFromFile.size() << " arguments of the witness have been found in the list:" << std::endl;
+        Printer::print_list(remaining);
         std::cout << std::endl;
     }
 
@@ -97,22 +107,9 @@ bool tools::Tools_Debug::checkContainsNumbersOfWitness(AF &framework, const std:
 /*===========================================================================================================================================================*/
 /*===========================================================================================================================================================*/
 
-
-void tools::Tools_Debug::print_Msg_ContainsNumbersOfWitness(AF &framework, const std::string& filePathWitness, const std::list<uint32_t>& arguments){
-
-    if (checkContainsNumbersOfWitness(framework, filePathWitness, arguments)) {
-        std::cout << "All numbers from the witness are present in the list of arguments." << std::endl;
-    } else {
-        std::cout << "Not all numbers from the witness are present in the list of arguments." << std::endl;
-    }
-}
-
-/*===========================================================================================================================================================*/
-/*===========================================================================================================================================================*/
-
 static void test(const std::string& file_path, const std::list<uint32_t>& list_numbers)
 {
-    std::vector<int> numbersFromFile = get_numbers(file_path);
+    std::vector<uint32_t> numbersFromFile = get_numbers(file_path);
     std::list<uint32_t> not_found = get_list_not_contained_numbers(numbersFromFile, list_numbers); 
 
     if (not_found.empty()) {
