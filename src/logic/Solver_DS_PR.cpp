@@ -89,6 +89,17 @@ bool Solver_DS_PR::solve(uint32_t query_argument, AF &framework, list<uint32_t> 
 
 	default:
 		bool is_query_attacked = false;
+
+		// ------------------------ DEBUG ----------------------------------------------------------------------
+		std::list<uint32_t> args; // list of arguments that are of relevance
+		tools::Tools_List::copy_in_list(args, active_args_in_coi._array);
+		args = tools::Tools_List::extend_list(args, grounded_extension);
+		std::string filePath = "/home/jsander/reducto/debug/witness.txt";   // Path to the file
+
+		tools::Tools_Debug::print_Msg_ContainsNumbersOfWitness(framework, filePath, args);
+		return 0;
+		// ------------------------ DEBUG ----------------------------------------------------------------------
+
 		bool is_skeptically_accepted = search_complete_sets_in_state(framework, active_args_in_coi, query_argument, out_certificate_extension, coi, is_query_attacked);
 
 		// if skeptical acceptance of query got rejected, but query is not attacked by certificate and the certificate is not a complete preferred set,

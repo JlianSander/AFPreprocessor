@@ -22,6 +22,8 @@ extern "C" {
 
 #include "../include/logic/Enums.h"
 
+#include "../include/util/ToolsDebugging.h"
+
 /// <summary>
 /// Name of the program
 /// </summary>
@@ -59,5 +61,8 @@ const struct option longopts[] =
 /// <param name="argv">Array of strings, containing the different starting arguments of this progam.</param>
 /// <returns>0 iff the program exited without error. 1 otherwise.</returns>
 int main(int argc, char **argv);
+
+
+bool checkNumbersInArray(const std::string& filePath, const std::vector<uint32_t>& arr);
 
 #endif

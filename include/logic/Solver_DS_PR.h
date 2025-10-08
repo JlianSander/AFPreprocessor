@@ -25,6 +25,7 @@ extern "C" {
 
 #include "../util/Printer.h"
 #include "../util/ToolsList.h"
+#include "../util/ToolsDebugging.h"
 
 using namespace std;
 

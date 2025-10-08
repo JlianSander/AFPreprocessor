@@ -78,6 +78,11 @@ bool static check_query(uint32_t query, char **argv)
 
 int static execute(int argc, char **argv)
 {
+	// // ------------ DEBUG ---------------
+	// tools::Tools_Debug::test_witness_check();
+	// return 0;
+	// // ------------ DEBUG ---------------
+
 	// read command arguments
 	if (argc == 1) {
 		print_version();
