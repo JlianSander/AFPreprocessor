@@ -21,7 +21,7 @@ extern "C" {
 #include "../logic/Reduct.h"
 #include "../logic/SatSolver.h"
 #include "../logic/ToolsSolver.h"
-#include "../logic/Solver_SE_PR.h"
+#include "../logic/Solver_DC_CO.h"
 
 #include "../util/Printer.h"
 #include "../util/ToolsList.h"

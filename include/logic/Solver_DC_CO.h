@@ -35,6 +35,9 @@ public:
 	/// <param name="out_proof_extension"> Extension proving, that the argument is credulously accepted.</param>
 	/// <returns>TRUE iff the argument is credulously accepted. FALSE otherwise.</returns>
 	static bool solve(uint32_t query_argument, AF &framework, list<uint32_t> &out_proof_extension);
+
+
+	static bool solve_reduct(uint32_t query_argument, AF &framework, ArrayBitSet &active_args, list<uint32_t> &out_certificate_extension);
 };
 
 #endif

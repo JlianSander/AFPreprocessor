@@ -3,7 +3,7 @@
 /*===========================================================================================================================================================*/
 /*===========================================================================================================================================================*/
 
-bool start_checking(uint32_t query_argument, AF &framework, ArrayBitSet &active_args, list<uint32_t> &out_certificate_extension) {
+bool Solver_DC_CO::solve_reduct(uint32_t query_argument, AF &framework, ArrayBitSet &active_args, list<uint32_t> &out_certificate_extension) {
 	// initialize SATSolver
 	SatSolver *solver = NULL;
 	solver = new SatSolver();
@@ -41,9 +41,9 @@ bool Solver_DC_CO::solve(uint32_t query_argument, AF &framework, list<uint32_t> 
 		return false;
 
 	case unknown:
-		return start_checking(query_argument, framework, initial_reduct, out_certificate_extension);
+		return solve_reduct(query_argument, framework, initial_reduct, out_certificate_extension);
 
 	default:
-		return start_checking(query_argument, framework, initial_reduct, out_certificate_extension);
+		return solve_reduct(query_argument, framework, initial_reduct, out_certificate_extension);
 	}
 }

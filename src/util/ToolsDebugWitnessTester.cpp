@@ -1,5 +1,9 @@
 #include "../../include/util/ToolsDebugWitnessTester.h"
 
+/*===========================================================================================================================================================*/
+/*===========================================================================================================================================================*/
+
+
 bool tools::WitnessTester::test(uint32_t query_argument, AF &framework, const std::string& file_path)
 {
 	// initialize variables
@@ -58,5 +62,19 @@ bool tools::WitnessTester::test(uint32_t query_argument, AF &framework, const st
 	//Printer::print_vector(reduct_all._array);
 	cout << endl;
 
-    return false;
+    list<uint32_t> extension_in_reduct;
+    bool has_complete_extension_in_reduct = Solver_DC_CO::solve_reduct(query_argument, framework, reduct_all, extension_in_reduct);
+
+    if(has_complete_extension_in_reduct){
+        cout << "Found the following CO extension in the reduct:" << endl;
+        Printer::print_list(extension_in_reduct);
+        cout << endl;
+
+        std::list<uint32_t> witness_superset = tools::Tools_List::extend_list(witness_all, extension_in_reduct);
+        cout << "Found the following superset of the witness containing the query argument:" << endl;
+        Printer::print_list(witness_superset);
+        cout << endl;
+    }
+
+    return !has_complete_extension_in_reduct;
 	}
