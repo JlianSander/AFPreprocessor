@@ -14,8 +14,10 @@ extern "C" {
 #include "../include/logic/AF.h"
 #include "../include/logic/Parser_iccma.h"
 #include "../include/logic/PreProcessor.h"
+#include "../include/logic/Writer.h"
 
 #include "../include/logic/Enums.h"
+#include "../include/util/Printer.h"
 
 /// <summary>
 /// Name of the program
@@ -29,6 +31,7 @@ constexpr auto VERSIONNUMBER = "1.0";
 static int version_flag = 0;
 static int usage_flag = 0;
 static int formats_flag = 0;
+static int quiet_flag = 0;
 
 /// <summary>
 /// Different options that can be added to a execution call of this application.
@@ -38,9 +41,12 @@ const struct option longopts[] =
 	{"help", no_argument, &usage_flag, 1},
 	{"version", no_argument, &version_flag, 1},
 	{"formats", no_argument, &formats_flag, 1},
+	{"quiet", no_argument, &quiet_flag, 1},
 	{"f", required_argument, 0, 'f'},
 	{"fo", required_argument, 0, 'o'},
 	{"a", required_argument, 0, 'a'},
+	{"r", required_argument, 0, 'r'},
+	{"e", required_argument, 0, 'e'},
 	{0, 0, 0}
 };
 

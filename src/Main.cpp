@@ -8,13 +8,16 @@ using namespace std;
 void static print_usage()
 {
 	cout << "Usage: " << PROGRAM_NAME << " -f <file> -fo <format> -a <query>\n\n";
-	cout << "  <file>      input argumentation framework\n";
-	cout << "  <format>    file format for input AF; for a list of available formats use option --formats\n";
-	cout << "  <query>     query argument\n";
+	cout << "  <file_input>      input argumentation framework\n";
+	cout << "  <format>          file format for input AF; for a list of available formats use option --formats\n";
+	cout << "  <query>           query argument\n";
+	cout << "  <file_output>     file to save simplified framework to\n";
+	cout << "  <file_args>       file to save encoding of arguments to\n";
 	cout << "Options:\n";
 	cout << "  --help      Displays this help message.\n";
 	cout << "  --version   Prints version and author information.\n";
 	cout << "  --formats   Prints available file formats.\n";
+	cout << "  --quiet     Surpresses printouts to console\n";
 }
 
 /*===========================================================================================================================================================*/
@@ -61,20 +64,26 @@ int static execute(int argc, char **argv)
 
 	int option_index = 0;
 	int opt = 0;
-	string file, fileformat, query;
+	string file_input_af, file_output_af, file_output_args, fileformat, query;
 
 	while ((opt = getopt_long_only(argc, argv, "", longopts, &option_index)) != -1) {
 		switch (opt) {
 		case 0:
 			break;
 		case 'f':
-			file = optarg;
+			file_input_af = optarg;
 			break;
 		case 'o':
 			fileformat = optarg;
 			break;
 		case 'a':
 			query = optarg;
+			break;
+		case 'r':
+			file_output_af = optarg;
+			break;
+		case 'e':
+			file_output_args = optarg;
 			break;
 		default:
 			return 1;
@@ -96,13 +105,13 @@ int static execute(int argc, char **argv)
 		return 0;
 	}
 
-	if (file.empty()) {
+	if (file_input_af.empty()) {
 		cerr << argv[0] << ": Input file must be specified via -f flag\n";
 		return 1;
 	}
 
 	if (fileformat.empty()) {
-		fileformat = file.substr(file.find_last_of(".") + 1, file.length() - file.find_last_of(".") - 1);
+		fileformat = file_input_af.substr(file_input_af.find_last_of(".") + 1, file_input_af.length() - file_input_af.find_last_of(".") - 1);
 	}
 
 	// parse the framework
@@ -110,10 +119,10 @@ int static execute(int argc, char **argv)
 	uint32_t query_argument_input = 0;
 	switch (Enums::string_to_format(fileformat)) {
 		case I23:
-			query_argument_input = ParserICCMA::parse_af_i23(framework_input, query, file);
+			query_argument_input = ParserICCMA::parse_af_i23(framework_input, query, file_input_af);
 			break;
 		case TGF:
-			query_argument_input = ParserICCMA::parse_af_tgf(framework_input, query, file);
+			query_argument_input = ParserICCMA::parse_af_tgf(framework_input, query, file_input_af);
 			break;
 		default:
 			cerr << argv[0] << ": Unsupported file format\n";
@@ -123,9 +132,18 @@ int static execute(int argc, char **argv)
 	check_query(query_argument_input, argv);
 	
 	// maping the arguments of the simplified output framework to the arguments of the original input framework 
-	unordered_map<uint32_t, uint32_t> args_output_to_input;
+	std::map<uint32_t, uint32_t> args_output_to_input;
 	AF framework_simplified_output = PreProcessor::calculate_cone_influence(framework_input, query_argument_input, args_output_to_input);
-	uint32_t query_argument_output = 1;
+
+	if(!file_output_args.empty())
+	{
+		Writer::write_map_to_file(file_output_args, args_output_to_input, quiet_flag);
+	}
+	
+	Writer::write_af_to_i23(file_output_af, framework_simplified_output, quiet_flag);
+	if(!quiet_flag){
+		cout << "Query argument in the new created argumentation framework is 1" << endl;
+	}
 
 	return 0;
 }

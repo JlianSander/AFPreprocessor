@@ -4,7 +4,7 @@
 /*===========================================================================================================================================================*/
 
 void add_arg_to_cone(std::__cxx11::list<uint32_t> &ls_args_unprocessed, std::vector<uint8_t> &active_args_bitset, 
-	uint32_t &out_num_args_new, std::unordered_map<uint32_t, uint32_t> &out_args_new_to_old, std::unordered_map<uint32_t, uint32_t> &out_args_old_to_new, uint32_t &argument)
+	uint32_t &out_num_args_new, std::map<uint32_t, uint32_t> &out_args_new_to_old, std::unordered_map<uint32_t, uint32_t> &out_args_old_to_new, uint32_t &argument)
 {
 	active_args_bitset[argument] = true;
 	out_num_args_new++;
@@ -17,7 +17,7 @@ void add_arg_to_cone(std::__cxx11::list<uint32_t> &ls_args_unprocessed, std::vec
 /*===========================================================================================================================================================*/
 
 static AF create_framework(AF &framework_old, vector<uint8_t> &active_args_bitset, uint32_t num_args_new,
-	std::unordered_map<uint32_t, uint32_t> &args_new_to_old, std::unordered_map<uint32_t, uint32_t> &args_old_to_new) {
+	std::map<uint32_t, uint32_t> &args_new_to_old, std::unordered_map<uint32_t, uint32_t> &args_old_to_new) {
 	AF framework_new = AF();
 	framework_new.initialize(num_args_new);
 	//iterate through new framework and add all attacks of the old framework
@@ -38,7 +38,7 @@ static AF create_framework(AF &framework_old, vector<uint8_t> &active_args_bitse
 /*===========================================================================================================================================================*/
 /*===========================================================================================================================================================*/
 
-AF PreProcessor::calculate_cone_influence(AF &framework, uint32_t query, std::unordered_map<uint32_t, uint32_t> &out_args_new_to_old) {
+AF PreProcessor::calculate_cone_influence(AF &framework, uint32_t query, std::map<uint32_t, uint32_t> &out_args_new_to_old) {
 	// initialize variables
 	vector<uint8_t> active_args_bitset(framework.num_args + 1, 0);
 	uint32_t num_args_new = 0;

@@ -5,6 +5,7 @@
 #include <cstdint>
 #include <list>
 #include <unordered_map>
+#include <map>
 
 #include "AF.h"
 #include "ConeOfInfluence.h"
@@ -27,8 +28,8 @@ public:
 	/// </summary>
 	/// <param name="framework">The abstract argumentation framework, in which the cone if situated</param>
 	/// <param name="query">The starting argument of the cone of influence</param>
-	/// <param name="">[Output parameter] Maps the arguments of the new framework to the arguments of the old framework. </param>
+	/// <param name="args_new_to_old">[Output parameter] Maps the arguments of the new framework to the arguments of the old framework. </param>
 	/// <returns>A reduct of the framework, containing only those argument, which are relevant for the specified query argument.</returns>
-	static AF calculate_cone_influence(AF &framework, uint32_t query, std::unordered_map<uint32_t, uint32_t> &args_new_to_old);
+	static AF calculate_cone_influence(AF &framework, uint32_t query, std::map<uint32_t, uint32_t> &args_new_to_old);
 };
 #endif
