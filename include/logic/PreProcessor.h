@@ -7,7 +7,6 @@
 #include <unordered_map>
 
 #include "AF.h"
-#include "Reduct.h"
 #include "ConeOfInfluence.h"
 
 #include "../util/ArrayBitSet.h"

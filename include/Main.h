@@ -13,20 +13,15 @@ extern "C" {
 
 #include "../include/logic/AF.h"
 #include "../include/logic/Parser_iccma.h"
-#include "../include/logic/Solver_DC_CO.h"
-#include "../include/logic/Solver_DC_ST.h"
-#include "../include/logic/Solver_DS_PR.h"
-#include "../include/logic/Solver_DS_ST.h"
-#include "../include/logic/Solver_SE_PR.h"
-#include "../include/logic/Solver_SE_ST.h"
+#include "../include/logic/PreProcessor.h"
 
 #include "../include/logic/Enums.h"
 
 /// <summary>
 /// Name of the program
 /// </summary>
-constexpr auto PROGRAM_NAME = "reducto";
-constexpr auto VERSIONNUMBER = "2.121";
+constexpr auto PROGRAM_NAME = "AFPreprocessor";
+constexpr auto VERSIONNUMBER = "1.0";
 
 /// <summary>
 /// Flags used for internal processing.
@@ -34,7 +29,6 @@ constexpr auto VERSIONNUMBER = "2.121";
 static int version_flag = 0;
 static int usage_flag = 0;
 static int formats_flag = 0;
-static int problems_flag = 0;
 
 /// <summary>
 /// Different options that can be added to a execution call of this application.
@@ -44,12 +38,10 @@ const struct option longopts[] =
 	{"help", no_argument, &usage_flag, 1},
 	{"version", no_argument, &version_flag, 1},
 	{"formats", no_argument, &formats_flag, 1},
-	{"problems", no_argument, &problems_flag, 1},
-	{"p", required_argument, 0, 'p'},
 	{"f", required_argument, 0, 'f'},
 	{"fo", required_argument, 0, 'o'},
 	{"a", required_argument, 0, 'a'},
-	{0, 0, 0, 0}
+	{0, 0, 0}
 };
 
 /// <summary>
