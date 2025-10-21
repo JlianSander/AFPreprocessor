@@ -1,7 +1,7 @@
 #!/usr/bin/bash
 #set -x
 
-if [ "$#" -ne 6 ]
+if [ "$#" -lt 5 ]
   then
     echo "analyseResults.sh <path_preprocessor> <path_input_afs> <path_output_afs> <ext_af> <ext_query> <ext_simpl>"
     echo "<path_preprocessor>       Path to the executable of AFPreprocessor used to simplify the frameworks\n"
