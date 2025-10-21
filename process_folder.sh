@@ -5,9 +5,9 @@ if [ "$#" -ne 5 ]
   then
     echo "analyseResults.sh <path_preprocessor> <path_input_afs> <path_output_afs> <ext_af> <ext_query>"
     echo "<path_preprocessor>       Path to the executable of AFPreprocessor used to simplify the frameworks\n"
-    echo "<path_input_afs>          Path to the folder containing the frameworks in .i23 format to simplify.\n"
-    echo "<path_output_afs>         Path to the folder in which the simplified frameworks are to be saved to.\n"
-    echo "<ext_af>                  File extension of the files that contain the argumentation framework"
+    echo "<path_input_afs>          Path to the folder containing the frameworks in .i23/.tgf format to simplify.\n"
+    echo "<path_output_afs>         Path to the folder in which the simplified frameworks are to be saved to as .i23 files.\n"
+    echo "<ext_af>                  File extension of the files that contain the argumentation framework.\n"
     echo "<ext_query>               File extension of the files that contain the query argument (e.g. '.af.arg').\n"
     exit 1    
 fi
@@ -55,7 +55,7 @@ for file_input_af in "$dir_input_afs"/*"$ext_af"; do
     # Read the first line of the args-file to get the query argument
     query_input=$(head -n 1 "$file_args")
 
-    file_output_af=$dir_output_afs"/"$file_basename_af"_simp"$ext_af""
+    file_output_af="$dir_output_afs"/"$file_basename_af"_simp.i23
     file_output_args=$dir_output_afs"/"$file_basename_af"_simp_args.txt"
 
     # create file to indicate new query argument
