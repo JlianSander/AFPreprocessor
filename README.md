@@ -1,7 +1,7 @@
 
-# AFPreprocessor 
+# af_preprocessor 
 
-**AFPreprocessor** is a tool to simplify abstract argumentation frameworks. It reduces the framework to only those arguments of relevance, see <a href="https://www.sciencedirect.com/science/article/pii/S0888613X24000306">Borg and Bex 2024</a> and its use in the argumentation solver <a href="https://github.com/aig-hagen/reducto">reducto</a>.
+**af_preprocessor** is a tool to simplify abstract argumentation frameworks. It reduces the framework to only those arguments of relevance, see <a href="https://www.sciencedirect.com/science/article/pii/S0888613X24000306">Borg and Bex 2024</a> and its use in the argumentation solver <a href="https://github.com/aig-hagen/reducto">reducto</a>.
 
 ## Build process
 
