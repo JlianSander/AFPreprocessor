@@ -4,7 +4,7 @@
 if [ "$#" -lt 5 ]
   then
     echo "analyseResults.sh <path_preprocessor> <path_input_afs> <path_output_afs> <ext_af> <ext_query> <ext_simpl>"
-    echo "<path_preprocessor>       Path to the executable of AFPreprocessor used to simplify the frameworks\n"
+    echo "<path_preprocessor>       Path to the executable of af_preprocessor used to simplify the frameworks\n"
     echo "<path_input_afs>          Path to the folder containing the frameworks in .i23/.tgf format to simplify.\n"
     echo "<path_output_afs>         Path to the folder in which the simplified frameworks are to be saved to as .i23 files.\n"
     echo "<ext_af>                  File extension of the files that contain the argumentation framework.\n"
